@@ -57,28 +57,83 @@ if(!role){
  const sel=document.getElementById("statusChange"); if(sel)sel.value=c.status;
  renderNotes();
 }
+
 function changeStatus(){
  const c=getCases().find(x=>Number(x.id)===id); if(!c||role!=="judge")return;
  c.status=document.getElementById("statusChange").value;
  save(getCases().map(x=>Number(x.id)===id?c:x));
  alert("تم تحديث حالة القضية إلى: "+c.status); location.reload();
 }
+
 function addInvestigation(){
  const t=document.getElementById("investigationNote")?.value.trim(); if(!t)return;
  const cs=getCases(),c=cs.find(x=>Number(x.id)===id); c.investigationNotes=c.investigationNotes||[];
  c.investigationNotes.push({by:ROLE_NAMES[role],date:new Date().toLocaleString("ar-SA"),text:t});
  save(cs); location.reload();
 }
+
 function addLegalNote(){
  const t=document.getElementById("legalNote")?.value.trim(); if(!t)return;
  const cs=getCases(),c=cs.find(x=>Number(x.id)===id); c.legalNotes=c.legalNotes||[];
  c.legalNotes.push({by:ROLE_NAMES[role],date:new Date().toLocaleString("ar-SA"),text:t});
  save(cs); location.reload();
 }
+
 function renderNotes(){
  const c=getCases().find(x=>Number(x.id)===id),a=c.investigationNotes||[],b=c.legalNotes||[];
  const area=document.getElementById("notesArea"); if(!area)return;
  area.innerHTML=`${a.length?'<h3>محاضر التحقيق</h3>'+a.map(n=>`<div class="note"><b>${esc(n.by)} — ${esc(n.date)}</b><p>${esc(n.text)}</p></div>`).join(""):""}
  ${b.length?'<h3>مذكرات المحامي</h3>'+b.map(n=>`<div class="note"><b>${esc(n.by)} — ${esc(n.date)}</b><p>${esc(n.text)}</p></div>`).join(""):""}`;
 }
+
+
+/* =========================================================
+   نظام طلب الحصول على رخصة محامي
+   ========================================================= */
+
+const LAWYER_EXAM_URL = "https://forms.gle/w8yLPEvRn7tZXNgbA";
+
+function startLawyerExam(){
+
+ const input = document.getElementById("lawyerName");
+ const message = document.getElementById("licenseMessage");
+
+ if(!input){
+   return;
+ }
+
+ const name = input.value.trim();
+
+ if(!name){
+   if(message){
+     message.textContent = "يرجى كتابة الاسم الكامل أولاً.";
+     message.style.color = "#ff7777";
+   }
+
+   input.focus();
+   return;
+ }
+
+ if(name.length < 3){
+   if(message){
+     message.textContent = "يرجى إدخال الاسم الكامل بشكل صحيح.";
+     message.style.color = "#ff7777";
+   }
+
+   input.focus();
+   return;
+ }
+
+ localStorage.setItem("lawyer_applicant_name", name);
+
+ if(message){
+   message.textContent = "تم تسجيل طلبك، جارٍ تحويلك إلى اختبار رخصة المحاماة...";
+   message.style.color = "#d4af37";
+ }
+
+ setTimeout(function(){
+   window.location.href = LAWYER_EXAM_URL;
+ },800);
+}
+
 </script></body></html>
