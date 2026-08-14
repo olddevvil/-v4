@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ملف القضية | القضاء والعدل</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<main class="case-page">
+<header><div class="header-logo"><img src="logo.png"><div><h1>القضاء والعدل</h1><p>ملف قضية رسمي</p></div></div><a class="login-btn" href="index.html#cases">العودة لسجل القضايا</a></header>
+<div id="caseContent"></div>
+</main>
+<script>
+const ROLE_NAMES={judge:"القاضي",lawyer:"المحامي",investigator:"المحقق"};
+const role=localStorage.getItem("court_role")||"";
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));}
+function getCases(){try{return JSON.parse(localStorage.getItem("court_cases"))||[]}catch(e){return[]}}
+function save(c){localStorage.setItem("court_cases",JSON.stringify(c))}
+const id=Number(new URLSearchParams(location.search).get("id"));
+const cases=getCases(), c=cases.find(x=>Number(x.id)===id), box=document.getElementById("caseContent");
+if(!role){
+ box.innerHTML='<section class="locked-page"><img src="logo.png"><h2>الوصول مقيّد</h2><p>يجب تسجيل الدخول لعرض تفاصيل القضية.</p><a class="gold-btn" href="index.html#login">تسجيل الدخول</a></section>';
+}else if(!c){
+ box.innerHTML='<section class="locked-page"><h2>القضية غير موجودة</h2><a class="gold-btn" href="index.html#cases">العودة للقضايا</a></section>';
+}else{
+ const statusClass=c.status==="مغلقة"?"closed":c.status==="مفتوحة"?"open":"pending";
+ box.innerHTML=`
+ <section class="case-detail">
+   <div class="detail-top"><span class="badge ${statusClass}">${esc(c.status)}</span><span class="role-pill">${ROLE_NAMES[role]}</span></div>
+   <h2>${esc(c.title)} — القضية رقم ${String(c.id).padStart(2,"0")}</h2>
+   <div class="case-meta">
+    <div><b>التاريخ</b><span>${esc(c.date||"—")}</span></div><div><b>نوع القضية</b><span>${esc(c.type||"—")}</span></div>
+    <div><b>المدعي</b><span>${esc(c.plaintiff||"—")}</span></div><div><b>المدعى عليه</b><span>${esc(c.defendant||"—")}</span></div>
+    <div><b>المحامي</b><span>${esc(c.lawyer||"—")}</span></div><div><b>المحقق</b><span>${esc(c.investigator||"—")}</span></div>
+   </div>
+   <h3>ملخص القضية</h3><p class="intro">${esc(c.summary)}</p>
+   <h3>تفاصيل الملف</h3><div class="statement">${esc(c.details).replace(/\\n/g,"<br>")}</div>
+   <h3>الأدلة والتقارير</h3><div class="statement">${esc(c.evidence||"لا توجد").replace(/\\n/g,"<br>")}</div>
+   <h3>الحكم</h3><div class="statement">${esc(c.judgment||"لم يصدر حكم نهائي بعد.").replace(/\\n/g,"<br>")}</div>
+   ${role==="judge"?`
+   <div class="action-panel">
+    <h3>صلاحيات القاضي</h3>
+    <p>يمكن للقاضي تغيير حالة القضية.</p>
+    <select id="statusChange"><option>مفتوحة</option><option>قيد التحقيق</option><option>محالة للمحكمة</option><option>مغلقة</option></select>
+    <button class="gold-btn" onclick="changeStatus()">تحديث حالة القضية</button>
+   </div>`:""}
+   ${role==="investigator"?`
+   <div class="action-panel">
+    <h3>محضر تحقيق جديد</h3>
+    <textarea id="investigationNote" placeholder="اكتب محضر التحقيق أو نتيجة إجراء جديد..."></textarea>
+    <button class="gold-btn" onclick="addInvestigation()">إضافة إلى ملف التحقيق</button>
+   </div>`:""}
+   ${role==="lawyer"?`
+   <div class="action-panel">
+    <h3>مذكرة المحامي</h3>
+    <textarea id="legalNote" placeholder="اكتب مذكرة أو ملاحظة قانونية للدفاع..."></textarea>
+    <button class="gold-btn" onclick="addLegalNote()">إضافة المذكرة</button>
+   </div>`:""}
+   <div id="notesArea"></div>
+ </section>`;
+ const sel=document.getElementById("statusChange"); if(sel)sel.value=c.status;
+ renderNotes();
+}
+function changeStatus(){
+ const c=getCases().find(x=>Number(x.id)===id); if(!c||role!=="judge")return;
+ c.status=document.getElementById("statusChange").value;
+ save(getCases().map(x=>Number(x.id)===id?c:x));
+ alert("تم تحديث حالة القضية إلى: "+c.status); location.reload();
+}
+function addInvestigation(){
+ const t=document.getElementById("investigationNote")?.value.trim(); if(!t)return;
+ const cs=getCases(),c=cs.find(x=>Number(x.id)===id); c.investigationNotes=c.investigationNotes||[];
+ c.investigationNotes.push({by:ROLE_NAMES[role],date:new Date().toLocaleString("ar-SA"),text:t});
+ save(cs); location.reload();
+}
+function addLegalNote(){
+ const t=document.getElementById("legalNote")?.value.trim(); if(!t)return;
+ const cs=getCases(),c=cs.find(x=>Number(x.id)===id); c.legalNotes=c.legalNotes||[];
+ c.legalNotes.push({by:ROLE_NAMES[role],date:new Date().toLocaleString("ar-SA"),text:t});
+ save(cs); location.reload();
+}
+function renderNotes(){
+ const c=getCases().find(x=>Number(x.id)===id),a=c.investigationNotes||[],b=c.legalNotes||[];
+ const area=document.getElementById("notesArea"); if(!area)return;
+ area.innerHTML=`${a.length?'<h3>محاضر التحقيق</h3>'+a.map(n=>`<div class="note"><b>${esc(n.by)} — ${esc(n.date)}</b><p>${esc(n.text)}</p></div>`).join(""):""}
+ ${b.length?'<h3>مذكرات المحامي</h3>'+b.map(n=>`<div class="note"><b>${esc(n.by)} — ${esc(n.date)}</b><p>${esc(n.text)}</p></div>`).join(""):""}`;
+}
+</script></body></html>
