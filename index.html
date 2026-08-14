@@ -7,26 +7,31 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <aside class="sidebar">
     <div class="brand">
       <img src="logo.png" alt="شعار القضاء والعدل">
       <h2>القضاء والعدل</h2>
       <span>جمهورية سيلفر</span>
     </div>
+
     <nav>
       <a class="active" href="#home">⌂ الرئيسية</a>
       <a href="#cases">⚖ سجل القضايا</a>
       <a href="#laws">▤ القوانين واللوائح</a>
       <a href="#investigators">⌕ المحققين</a>
       <a href="#lawyers">♙ المحامين</a>
+      <a href="#lawyer-license">⚖ طلب رخصة محامي</a>
       <a href="#decisions">▣ القرارات القديمة</a>
       <a href="#judiciary">♜ هيئة القضاء</a>
       <a href="#login">✉ تسجيل الدخول</a>
     </nav>
+
     <div class="quote">«العدل أساس الملك، والقضاء سلطان لا يُسأل عما يفعل»</div>
   </aside>
 
   <main>
+
     <header>
       <div class="header-logo">
         <img src="logo.png" alt="الشعار">
@@ -35,6 +40,7 @@
           <p>جمهورية سيلفر</p>
         </div>
       </div>
+
       <button id="loginTop" class="login-btn">تسجيل الدخول</button>
     </header>
 
@@ -45,17 +51,28 @@
         <p>نحن هنا لتحقيق العدل، وحماية الحقوق، وتطبيق القانون على الجميع دون استثناء.</p>
         <a class="gold-btn" href="#cases">الاطلاع على القضايا</a>
       </div>
+
       <div class="scales">⚖</div>
     </section>
 
     <section id="cases" class="section">
-      <div class="section-title"><span>⚖</span><h2>سجل القضايا السابقة</h2></div>
-      <p class="hint">يمكن للجميع مشاهدة بيانات القضية الأساسية، بينما تتطلب تفاصيل الملف تسجيل الدخول.</p>
+      <div class="section-title">
+        <span>⚖</span>
+        <h2>سجل القضايا السابقة</h2>
+      </div>
+
+      <p class="hint">
+        يمكن للجميع مشاهدة بيانات القضية الأساسية، بينما تتطلب تفاصيل الملف تسجيل الدخول.
+      </p>
 
       <div class="case-actions" id="caseActions">
-        <button class="gold-btn admin-only" onclick="showCreateCase()">＋ إنشاء قضية جديدة</button>
+        <button class="gold-btn admin-only" onclick="showCreateCase()">
+          ＋ إنشاء قضية جديدة
+        </button>
       </div>
+
       <div id="casesGrid" class="cases-grid">
+
         <article class="case-card">
           <div class="case-no">01</div>
           <span class="badge closed">مغلقة</span>
@@ -71,6 +88,7 @@
           <p>وقائع اعتداء وإطلاق نار وبلاغات متبادلة بين الأطراف.</p>
           <button onclick="openCase(2)">عرض تفاصيل القضية</button>
         </article>
+
       </div>
     </section>
 
@@ -82,152 +100,405 @@
     </section>
 
     <section id="laws" class="section">
-      <div class="section-title"><span>▤</span><h2>قوانين القاضي والمحامي</h2></div>
+
+      <div class="section-title">
+        <span>▤</span>
+        <h2>قوانين القاضي والمحامي</h2>
+      </div>
+
       <div class="law-grid">
+
         <div class="panel">
+
           <h3>صلاحيات وواجبات القاضي</h3>
+
           <ul>
             <li>الحياد التام وبناء الحكم على الأدلة والبراهين.</li>
             <li>إصدار مذكرات التوقيف والتفتيش الرسمية والمسببة.</li>
             <li>إدارة قاعة المحكمة وطرد مثيري الفوضى وفرض الغرامات.</li>
           </ul>
+
           <h3>محظورات القاضي</h3>
+
           <ul>
             <li>يمنع قبول الرشاوى.</li>
             <li>التنحي عند وجود صلة قوية بأحد أطراف القضية.</li>
             <li>يمنع إفشاء أسرار التحقيق قبل تنفيذها.</li>
           </ul>
-          <div class="penalty">عقوبة المخالفة: سحب الرتبة</div>
+
+          <div class="penalty">
+            عقوبة المخالفة: سحب الرتبة
+          </div>
+
         </div>
 
         <div class="panel">
+
           <h3>حقوق المحامي</h3>
+
           <ul>
             <li>حق الوصول للموقوف والانفراد بموكله لمدة 5 إلى 10 دقائق.</li>
             <li>حضور التحقيقات ونصح الموكل بالصمت عند الحاجة.</li>
             <li>معاينة الأدلة قبل بدء المحاكمة.</li>
           </ul>
+
           <h3>محظورات المحامي</h3>
+
           <ul>
             <li>يمنع تهريب الممنوعات مستغلاً الحصانة.</li>
             <li>يمنع التواطؤ مع الشرطة ضد مصلحة الموكل.</li>
             <li>الاتفاق على الأتعاب مسبقاً وعدم تجاوز الحد الأعلى.</li>
           </ul>
+
         </div>
+
       </div>
 
       <div class="panel wide">
+
         <h3>سلوكيات المحامي داخل القاعة</h3>
+
         <ul>
           <li>مخاطبة القاضي بلقب «سيادة القاضي» أو «حضرة القاضي» وعدم المقاطعة.</li>
           <li>الاعتراض بعبارة «اعتراض يا سيادة القاضي!» مع ذكر السبب.</li>
           <li>استخدام الأدلة لكشف التناقضات وطلب تدوينها في محضر الجلسة.</li>
           <li>الاستناد إلى دليل المفاجأة وثغرات الإجراءات ومصداقية الشاهد والحجة المنطقية.</li>
         </ul>
+
       </div>
+
     </section>
 
     <section id="investigators" class="section">
-      <div class="section-title"><span>⌕</span><h2>المحققين المتوفرين</h2></div>
-      <div class="people-grid">
-        <div class="person">يايا ال منذر</div><div class="person">الحانوتي</div>
-        <div class="person">عنترة ال ستارك</div><div class="person">الحارث بن عبيدة ال ستارك</div>
-        <div class="person">ابا النواس ال ستارك</div><div class="person chief">ابا القعقاع الوتار <small>رئيس قسم المحققين</small></div>
-        <div class="person chief">دريد الوتار <small>كاتب المحكمة ومساعد رئيس قسم المحققين</small></div>
+
+      <div class="section-title">
+        <span>⌕</span>
+        <h2>المحققين المتوفرين</h2>
       </div>
+
+      <div class="people-grid">
+
+        <div class="person">يايا ال منذر</div>
+        <div class="person">الحانوتي</div>
+
+        <div class="person">عنترة ال ستارك</div>
+        <div class="person">الحارث بن عبيدة ال ستارك</div>
+
+        <div class="person">ابا النواس ال ستارك</div>
+
+        <div class="person chief">
+          ابا القعقاع الوتار
+          <small>رئيس قسم المحققين</small>
+        </div>
+
+        <div class="person chief">
+          دريد الوتار
+          <small>كاتب المحكمة ومساعد رئيس قسم المحققين</small>
+        </div>
+
+      </div>
+
     </section>
 
     <section id="lawyers" class="section">
-      <div class="section-title"><span>♙</span><h2>المحامين المتوفرين</h2></div>
+
+      <div class="section-title">
+        <span>♙</span>
+        <h2>المحامين المتوفرين</h2>
+      </div>
+
       <div class="people-grid three">
+
         <div class="person">المعتمد ابن عباد</div>
         <div class="person">جعفر الجعافر</div>
         <div class="person">كريقان ستارك</div>
+
       </div>
+
     </section>
+
+
+    <!-- ================================================= -->
+    <!-- طلب الحصول على رخصة محامي -->
+    <!-- ================================================= -->
+
+    <section id="lawyer-license" class="section">
+
+      <div class="section-title">
+        <span>⚖</span>
+        <h2>طلب الحصول على رخصة محامي</h2>
+      </div>
+
+      <p class="hint">
+        للراغبين في الحصول على رخصة محامي، يرجى إدخال الاسم الكامل
+        ثم التوجه إلى اختبار رخصة المحاماة.
+      </p>
+
+      <div class="panel license-panel">
+
+        <h3>تقديم طلب رخصة محامي</h3>
+
+        <p>
+          بعد إدخال اسمك، سيتم تحويلك إلى اختبار رخصة المحاماة.
+          يرجى التأكد من كتابة الاسم بشكل صحيح.
+        </p>
+
+        <div class="license-form">
+
+          <input
+            id="lawyerName"
+            type="text"
+            placeholder="الاسم الكامل *"
+            autocomplete="name"
+          >
+
+          <button
+            class="gold-btn"
+            onclick="startLawyerExam()"
+          >
+            تقديم الطلب وبدء الاختبار
+          </button>
+
+        </div>
+
+        <div id="licenseMessage"></div>
+
+      </div>
+
+    </section>
+
 
     <section id="judiciary" class="section">
-      <div class="section-title"><span>♜</span><h2>هيئة القضاء</h2></div>
-      <div class="judges">
-        <div><strong>كبير القضاة</strong><span>العجوز مرداس ال ضرغام</span></div>
-        <div><strong>نائب كبير القضاة</strong><span>ابا سيف</span></div>
-        <div><strong>مستشار كبير القضاة</strong><span>سراب ال ضرغام</span></div>
+
+      <div class="section-title">
+        <span>♜</span>
+        <h2>هيئة القضاء</h2>
       </div>
+
+      <div class="judges">
+
+        <div>
+          <strong>كبير القضاة</strong>
+          <span>العجوز مرداس ال ضرغام</span>
+        </div>
+
+        <div>
+          <strong>نائب كبير القضاة</strong>
+          <span>ابا سيف</span>
+        </div>
+
+        <div>
+          <strong>مستشار كبير القضاة</strong>
+          <span>سراب ال ضرغام</span>
+        </div>
+
+      </div>
+
     </section>
+
 
     <section id="decisions" class="section">
-      <div class="section-title"><span>▣</span><h2>القرارات القديمة</h2></div>
+
+      <div class="section-title">
+        <span>▣</span>
+        <h2>القرارات القديمة</h2>
+      </div>
+
       <div class="decision">
+
         <h3>إعلان للمواطنين — تنظيم أتعاب المحامين</h3>
-        <p>تعلن المحكمة عن اعتماد تنظيم جديد لأتعاب المحامين، حيث لا يحق للمحامي التنازل عن أتعابه المستحقة، ويتم استقطاع نسبة 20٪ من إجمالي الأتعاب لصالح المحكمة. وتتراوح أتعاب المحامي بين 30,000 كحد أدنى و45,000 كحد أقصى، بهدف تنظيم الأتعاب والمساهمة في تنظيم ميزانية القطاع ودعم ميزانية الدولة.</p>
+
+        <p>
+          تعلن المحكمة عن اعتماد تنظيم جديد لأتعاب المحامين، حيث لا يحق للمحامي
+          التنازل عن أتعابه المستحقة، ويتم استقطاع نسبة 20٪ من إجمالي الأتعاب
+          لصالح المحكمة. وتتراوح أتعاب المحامي بين 30,000 كحد أدنى و45,000 كحد
+          أقصى، بهدف تنظيم الأتعاب والمساهمة في تنظيم ميزانية القطاع ودعم ميزانية الدولة.
+        </p>
+
       </div>
+
       <div class="decision">
+
         <h3>حكم محكمة</h3>
-        <p>تقرر المحكمة إيقاف صرف رواتب جميع موظفي الدولة حتى إشعار آخر بسبب التباطؤ في أداء الواجبات وعدم الالتزام بالعمل واستغلال نفوذ المناصب والإخلال بالمسؤوليات. كما تقرر إيقاف صلاحيات الجنرال العام ونائبه ومستشاره لضعف الأداء وسوء إدارة المهام، وفصل رجل القانون شجاع من منصبه بسبب عدم الالتزام والإساءة للمحكمة، مع التأكيد أن القانون فوق الجميع.</p>
-        <footer>كبير القضاة بالإنابة: العجوز مرداس آل ضرغام</footer>
+
+        <p>
+          تقرر المحكمة إيقاف صرف رواتب جميع موظفي الدولة حتى إشعار آخر بسبب
+          التباطؤ في أداء الواجبات وعدم الالتزام بالعمل واستغلال نفوذ المناصب
+          والإخلال بالمسؤوليات. كما تقرر إيقاف صلاحيات الجنرال العام ونائبه
+          ومستشاره لضعف الأداء وسوء إدارة المهام، وفصل رجل القانون شجاع من منصبه
+          بسبب عدم الالتزام والإساءة للمحكمة، مع التأكيد أن القانون فوق الجميع.
+        </p>
+
+        <footer>
+          كبير القضاة بالإنابة: العجوز مرداس آل ضرغام
+        </footer>
+
       </div>
+
     </section>
+
 
     <section id="login" class="login-section">
+
       <h2>دخول موظفي القضاء</h2>
-      <p>أدخل رمز الدخول لعرض تفاصيل ملفات القضايا.</p>
+
+      <p>
+        أدخل رمز الدخول لعرض تفاصيل ملفات القضايا.
+      </p>
+
       <div class="login-box">
-        <input id="codeInput" type="password" placeholder="رمز الدخول">
-        <button onclick="login()">دخول</button>
+
+        <input
+          id="codeInput"
+          type="password"
+          placeholder="رمز الدخول"
+        >
+
+        <button onclick="login()">
+          دخول
+        </button>
+
       </div>
-      <small>الزائر غير المسجل يستطيع مشاهدة بيانات القضية الأساسية فقط.</small>
+
+      <small>
+        الزائر غير المسجل يستطيع مشاهدة بيانات القضية الأساسية فقط.
+      </small>
+
     </section>
 
-    <footer class="site-footer">© القضاء والعدل — جمهورية سيلفر</footer>
+
+    <footer class="site-footer">
+      © القضاء والعدل — جمهورية سيلفر
+    </footer>
+
   </main>
 
 
+  <!-- نافذة إنشاء قضية -->
+
   <div id="createCaseModal" class="modal">
+
     <div class="modal-box create-box">
+
       <button class="close" onclick="closeCreateCase()">×</button>
+
       <img src="logo.png" alt="الشعار">
+
       <h2>إنشاء قضية جديدة</h2>
-      <p>إدخال كامل بيانات القضية في سجل القضاء والعدل.</p>
+
+      <p>
+        إدخال كامل بيانات القضية في سجل القضاء والعدل.
+      </p>
+
       <div class="form-grid">
+
         <input id="newTitle" type="text" placeholder="اسم القضية *">
+
         <input id="newType" type="text" placeholder="نوع القضية">
+
         <input id="newDate" type="date">
+
         <input id="newPlaintiff" type="text" placeholder="المدعي">
+
         <input id="newDefendant" type="text" placeholder="المدعى عليه">
+
         <input id="newLawyer" type="text" placeholder="المحامي">
+
         <input id="newInvestigator" type="text" placeholder="المحقق">
+
         <select id="newStatus">
+
           <option value="مفتوحة">مفتوحة</option>
           <option value="قيد التحقيق">قيد التحقيق</option>
           <option value="محالة للمحكمة">محالة للمحكمة</option>
           <option value="مغلقة">مغلقة</option>
+
         </select>
+
       </div>
-      <textarea id="newSummary" placeholder="ملخص القضية *"></textarea>
-      <textarea id="newDetails" placeholder="تفاصيل القضية والإفادات *"></textarea>
-      <textarea id="newEvidence" placeholder="الأدلة والتقارير"></textarea>
-      <button class="gold-btn full" onclick="createCase()">حفظ القضية</button>
+
+      <textarea
+        id="newSummary"
+        placeholder="ملخص القضية *"
+      ></textarea>
+
+      <textarea
+        id="newDetails"
+        placeholder="تفاصيل القضية والإفادات *"
+      ></textarea>
+
+      <textarea
+        id="newEvidence"
+        placeholder="الأدلة والتقارير"
+      ></textarea>
+
+      <button
+        class="gold-btn full"
+        onclick="createCase()"
+      >
+        حفظ القضية
+      </button>
+
       <div id="createCaseError"></div>
+
     </div>
+
   </div>
+
+
+  <!-- نافذة تسجيل الدخول -->
 
   <div id="loginModal" class="modal">
+
     <div class="modal-box">
+
       <button class="close" onclick="closeLogin()">×</button>
+
       <img src="logo.png" alt="الشعار">
+
       <h2>دخول موظفي القضاء</h2>
-      <p id="roleHelp">رموز الدخول مخصصة للقاضي والمحامي والمحقق.</p>
-      <input id="modalCode" type="password" placeholder="رمز الدخول">
-      <button class="gold-btn full" onclick="loginFromModal()">دخول</button>
+
+      <p id="roleHelp">
+        رموز الدخول مخصصة للقاضي والمحامي والمحقق.
+      </p>
+
+      <input
+        id="modalCode"
+        type="password"
+        placeholder="رمز الدخول"
+      >
+
+      <button
+        class="gold-btn full"
+        onclick="loginFromModal()"
+      >
+        دخول
+      </button>
+
       <div id="loginError"></div>
+
       <div class="role-hint">
-        <span>القاضي: إدارة القضايا وتغيير حالتها</span>
-        <span>المحقق: إنشاء القضية وإضافة محاضر التحقيق</span>
-        <span>المحامي: الاطلاع وإضافة الملاحظات القانونية</span>
+
+        <span>
+          القاضي: إدارة القضايا وتغيير حالتها
+        </span>
+
+        <span>
+          المحقق: إنشاء القضية وإضافة محاضر التحقيق
+        </span>
+
+        <span>
+          المحامي: الاطلاع وإضافة الملاحظات القانونية
+        </span>
+
       </div>
+
     </div>
+
   </div>
 
+
   <script src="script.js"></script>
+
 </body>
 </html>
